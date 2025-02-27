@@ -1,5 +1,5 @@
 {
-  "name": "haraka-plugin-template",
+  "name": "haraka-plugin-null_hash",
   "version": "1.0.1",
   "description": "Haraka plugin that...CHANGE THIS",
   "main": "index.js",
@@ -19,18 +19,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/haraka/haraka-plugin-template.git"
+    "url": "git+https://github.com/haraka/haraka-plugin-null_hash.git"
   },
   "keywords": [
     "haraka-plugin",
-    "template"
+    "null_hash"
   ],
   "author": "Welcome Member <happy-haraka-hacker@example.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/haraka/haraka-plugin-template/issues"
+    "url": "https://github.com/haraka/haraka-plugin-null_hash/issues"
   },
-  "homepage": "https://github.com/haraka/haraka-plugin-template#readme",
+  "homepage": "https://github.com/haraka/haraka-plugin-null_hash#readme",
   "devDependencies": {
     "@haraka/eslint-config": "^2.0.2",
     "haraka-test-fixtures": "^1.3.8"

@@ -1,69 +1,45 @@
-[![CI Test Status][ci-img]][ci-url]
-[![Code Climate][clim-img]][clim-url]
-
 # haraka-plugin-null_hash
 
-Clone me, to create a new Haraka plugin!
+# null_hash
 
-## Template Instructions
+Adds a X-Null-Hash header to outbound emails to help verify the authenticity of bounce messages. The header contains an MD5 hash created from the message's From header, Date header, Message-ID, and a configured secret phrase.
 
-These instructions will not self-destruct after use. Use and destroy.
+This plugin works in conjunction with Haraka's Bounce plugin, which verifies the authenticity of incoming bounce messages by recreating and comparing the hash.
 
-See also, [How to Write a Plugin](https://github.com/haraka/Haraka/wiki/Write-a-Plugin) and [Plugins.md](https://github.com/haraka/Haraka/blob/master/docs/Plugins.md) for additional plugin writing information.
+## Installation
 
-## Create a new repo for your plugin
-
-Haraka plugins are named like `haraka-plugin-something`. All the namespace after `haraka-plugin-` is yours for the taking. Please check the [Plugins](https://github.com/haraka/Haraka/blob/master/Plugins.md) page and a Google search to see what plugins already exist.
-
-Once you've settled on a name, create the GitHub repo. On the [null_hash repo's main page](https://github.com/haraka/haraka-plugin-null_hash), click the _Use this null_hash_ button and create your new repository. Then paste that URL into a local ENV variable with a command like this:
-
-```sh
-export MY_GITHUB_ORG=haraka
-export MY_PLUGIN_NAME=haraka-plugin-SOMETHING
-```
-
-Clone and rename the null_hash repo:
-
-```sh
-git clone https://github.com/$MY_GITHUB_ORG/$MY_PLUGIN_NAME.git
-cd $MY_PLUGIN_NAME
-```
-
-Now you'll have a local git repo to begin authoring your plugin
-
-## rename boilerplate
-
-Replaces all uses of the word `null_hash` with your plugin's name.
-
-./redress.sh [something]
-
-You'll then be prompted to update package.json and then force push this repo onto the GitHub repo you've created earlier.
-
-# Add your content here
-
-## INSTALL
-
-```sh
+```bash
 cd /path/to/local/haraka
 npm install haraka-plugin-null_hash
 echo "null_hash" >> config/plugins
 service haraka restart
 ```
 
-### Configuration
+## Configuration
 
-If the default configuration is not sufficient, copy the config file from the distribution into your haraka config dir and then modify it:
-
-```sh
-cp node_modules/haraka-plugin-null_hash/config/null_hash.ini config/null_hash.ini
-$EDITOR config/null_hash.ini
+Create a `config/null_hash.ini` file in your Haraka installation:
+```ini
+secret=secret-phrase-goes-here
 ```
 
-## USAGE
+The `secret` value should be:
+- A secure, random string
+- Kept private and not shared
+- The same across all your outbound mail servers
+- The same for the Haraka's Bounce plugin for all inbound mail servers
+- Changed periodically as part of your security practices
 
-<!-- leave these buried at the bottom of the document -->
 
-[ci-img]: https://github.com/haraka/haraka-plugin-null_hash/actions/workflows/ci.yml/badge.svg
-[ci-url]: https://github.com/haraka/haraka-plugin-null_hash/actions/workflows/ci.yml
-[clim-img]: https://codeclimate.com/github/haraka/haraka-plugin-null_hash/badges/gpa.svg
-[clim-url]: https://codeclimate.com/github/haraka/haraka-plugin-null_hash
+## How it Works
+
+For outbound messages, this plugin:
+1. Extracts the From header, Date header, and Message-ID
+2. Combines these values with your configured secret phrase
+3. Creates an MD5 hash of the combined string
+4. Adds the hash as an X-Null-Hash header
+
+When a bounce message is received, Haraka's Bounce plugin will:
+1. Extract the same headers from the bounced message
+2. Recreate the hash using the same method
+3. Compare it with the X-Null-Hash header found in the bounce message
+4. Reject the bounce if the hashes don't match

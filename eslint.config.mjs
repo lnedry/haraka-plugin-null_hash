@@ -21,5 +21,14 @@ export default [
         ...globals.mocha,
       },
     },
+    rules: {
+        'semi-style': ['error', 'last'],
+        'prefer-template': 'warn',
+        'no-console': 'warn',
+        'no-empty': [2, { allowEmptyCatch: true }],
+        'no-unneeded-ternary': 1,
+        "no-warning-comments": ["error", { "terms": ["todo", "fixme"], "location": "start" }],
+        "no-trailing-spaces": "error",
+    },
   },
 ]

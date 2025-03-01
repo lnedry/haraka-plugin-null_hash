@@ -1,7 +1,7 @@
 {
   "name": "haraka-plugin-null_hash",
-  "version": "1.0.1",
-  "description": "Haraka plugin that...CHANGE THIS",
+  "version": "1.0.0",
+  "description": "Adds cryptographic validation to bounce messages by inserting an MD5 hash header in outbound emails.",
   "main": "index.js",
   "files": [
     "CHANGELOG.md",
@@ -13,27 +13,29 @@
     "lint:fix": "npx eslint *.js test --fix",
     "prettier": "npx prettier . --check",
     "prettier:fix": "npx prettier . --write --log-level=warn",
-    "test": "node --test",
+    "test": "npx mocha",
     "versions": "npx dependency-version-checker check",
     "versions:fix": "npx dependency-version-checker update"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/haraka/haraka-plugin-null_hash.git"
+    "url": "git+https://github.com/lnedry/haraka-plugin-null_hash.git"
   },
   "keywords": [
     "haraka-plugin",
-    "null_hash"
+    "null_hash",
+    "bounce"
   ],
-  "author": "Welcome Member <happy-haraka-hacker@example.com>",
+  "author": "Larry Nedry <haraka@nedry.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/haraka/haraka-plugin-null_hash/issues"
+    "url": "https://github.com/lnedry/haraka-plugin-null_hash/issues"
   },
-  "homepage": "https://github.com/haraka/haraka-plugin-null_hash#readme",
+  "homepage": "https://github.com/lnedry/haraka-plugin-null_hash#readme",
   "devDependencies": {
     "@haraka/eslint-config": "^2.0.2",
-    "haraka-test-fixtures": "^1.3.8"
+    "haraka-test-fixtures": "^1.3.8",
+    "mocha": "^11.1.0"
   },
   "prettier": {
     "singleQuote": true,
